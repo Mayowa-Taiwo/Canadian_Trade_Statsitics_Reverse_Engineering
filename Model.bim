@@ -1,0 +1,754 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1600,
+  "model": {
+    "culture": "en-US",
+    "dataSources": [
+      {
+        "type": "structured",
+        "name": "File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatiticsFile",
+        "connectionDetails": {
+          "protocol": "file",
+          "address": {
+            "path": "C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatiticsFiles\\12100011.csv"
+          },
+          "authentication": null,
+          "query": null
+        },
+        "credential": {
+          "AuthenticationKind": "ServiceAccount",
+          "kind": "File",
+          "path": "c:\\users\\admin\\documents\\projects\\data staging\\tradedata\\tradestatiticsfiles\\12100011.csv"
+        },
+        "contextExpression": [
+          "let",
+          "    #\"0001\" = Csv.Document(..., [Delimiter = \",\", Columns = 18, Encoding = 1252, QuoteStyle = QuoteStyle.None]),",
+          "    #\"0002\" = Table.PromoteHeaders(#\"0001\", [PromoteAllScalars = true]),",
+          "    #\"0003\" = Table.TransformColumnTypes(#\"0002\", {{\"REF_DATE\", type date}, {\"GEO\", type text}, {\"DGUID\", type text}, {\"Trade\", type text}, {\"Basis\", type text}, {\"Seasonal adjustment\", type text}, {\"Principal trading partners\", type text}, {\"UOM\", type text}, {\"UOM_ID\", Int64.Type}, {\"SCALAR_FACTOR\", type text}, {\"SCALAR_ID\", Int64.Type}, {\"VECTOR\", type text}, {\"COORDINATE\", type text}, {\"VALUE\", type number}, {\"STATUS\", type text}, {\"SYMBOL\", type text}, {\"TERMINATED\", type text}, {\"DECIMALS\", Int64.Type}})",
+          "in",
+          "    #\"0003\""
+        ]
+      },
+      {
+        "type": "structured",
+        "name": "File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatitics (2)",
+        "connectionDetails": {
+          "protocol": "file",
+          "address": {
+            "path": "C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatiticsFiles\\12100119.csv"
+          },
+          "authentication": null,
+          "query": null
+        },
+        "credential": {
+          "AuthenticationKind": "ServiceAccount",
+          "kind": "File",
+          "path": "c:\\users\\admin\\documents\\projects\\data staging\\tradedata\\tradestatiticsfiles\\12100119.csv"
+        },
+        "contextExpression": [
+          "let",
+          "    #\"0001\" = Csv.Document(..., [Delimiter = \",\", Columns = 17, Encoding = 65001, QuoteStyle = QuoteStyle.None]),",
+          "    #\"0002\" = Table.PromoteHeaders(#\"0001\", [PromoteAllScalars = true]),",
+          "    #\"0003\" = Table.TransformColumnTypes(#\"0002\", {{\"REF_DATE\", type date}, {\"GEO\", type text}, {\"DGUID\", type text}, {\"Trade\", type text}, {\"North American Product Classification System (NAPCS)\", type text}, {\"Principal trading partners\", type text}, {\"UOM\", type text}, {\"UOM_ID\", Int64.Type}, {\"SCALAR_FACTOR\", type text}, {\"SCALAR_ID\", Int64.Type}, {\"VECTOR\", type text}, {\"COORDINATE\", type text}, {\"VALUE\", Int64.Type}, {\"STATUS\", type text}, {\"SYMBOL\", type text}, {\"TERMINATED\", type text}, {\"DECIMALS\", Int64.Type}})",
+          "in",
+          "    #\"0003\""
+        ]
+      },
+      {
+        "type": "structured",
+        "name": "File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatitics (3)",
+        "connectionDetails": {
+          "protocol": "file",
+          "address": {
+            "path": "C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatiticsFiles\\12100121.csv"
+          },
+          "authentication": null,
+          "query": null
+        },
+        "credential": {
+          "AuthenticationKind": "ServiceAccount",
+          "kind": "File",
+          "path": "c:\\users\\admin\\documents\\projects\\data staging\\tradedata\\tradestatiticsfiles\\12100121.csv"
+        },
+        "contextExpression": [
+          "let",
+          "    #\"0001\" = Csv.Document(..., [Delimiter = \",\", Columns = 18, Encoding = 65001, QuoteStyle = QuoteStyle.None]),",
+          "    #\"0002\" = Table.PromoteHeaders(#\"0001\", [PromoteAllScalars = true]),",
+          "    #\"0003\" = Table.TransformColumnTypes(#\"0002\", {{\"REF_DATE\", type date}, {\"GEO\", type text}, {\"DGUID\", type text}, {\"Trade\", type text}, {\"Basis\", type text}, {\"Seasonal adjustment\", type text}, {\"North American Product Classification System (NAPCS)\", type text}, {\"UOM\", type text}, {\"UOM_ID\", Int64.Type}, {\"SCALAR_FACTOR\", type text}, {\"SCALAR_ID\", Int64.Type}, {\"VECTOR\", type text}, {\"COORDINATE\", type text}, {\"VALUE\", type number}, {\"STATUS\", type text}, {\"SYMBOL\", type text}, {\"TERMINATED\", type text}, {\"DECIMALS\", Int64.Type}})",
+          "in",
+          "    #\"0003\""
+        ]
+      },
+      {
+        "type": "structured",
+        "name": "File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatitics (4)",
+        "connectionDetails": {
+          "protocol": "file",
+          "address": {
+            "path": "C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatiticsFiles\\12100128.csv"
+          },
+          "authentication": null,
+          "query": null
+        },
+        "credential": {
+          "AuthenticationKind": "ServiceAccount",
+          "kind": "File",
+          "path": "c:\\users\\admin\\documents\\projects\\data staging\\tradedata\\tradestatiticsfiles\\12100128.csv"
+        },
+        "contextExpression": [
+          "let",
+          "    #\"0001\" = Csv.Document(..., [Delimiter = \",\", Columns = 20, Encoding = 65001, QuoteStyle = QuoteStyle.None]),",
+          "    #\"0002\" = Table.PromoteHeaders(#\"0001\", [PromoteAllScalars = true]),",
+          "    #\"0003\" = Table.TransformColumnTypes(#\"0002\", {{\"REF_DATE\", type date}, {\"GEO\", type text}, {\"DGUID\", type text}, {\"Trade\", type text}, {\"Basis\", type text}, {\"Seasonal adjustment\", type text}, {\"Index\", type text}, {\"Weighting\", type text}, {\"North American Product Classification System (NAPCS)\", type text}, {\"UOM\", type text}, {\"UOM_ID\", Int64.Type}, {\"SCALAR_FACTOR\", type text}, {\"SCALAR_ID\", Int64.Type}, {\"VECTOR\", type text}, {\"COORDINATE\", type text}, {\"VALUE\", type number}, {\"STATUS\", type text}, {\"SYMBOL\", type text}, {\"TERMINATED\", type text}, {\"DECIMALS\", Int64.Type}})",
+          "in",
+          "    #\"0003\""
+        ]
+      },
+      {
+        "type": "structured",
+        "name": "File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatitics (5)",
+        "connectionDetails": {
+          "protocol": "file",
+          "address": {
+            "path": "C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatiticsFiles\\12100144.csv"
+          },
+          "authentication": null,
+          "query": null
+        },
+        "credential": {
+          "AuthenticationKind": "ServiceAccount",
+          "kind": "File",
+          "path": "c:\\users\\admin\\documents\\projects\\data staging\\tradedata\\tradestatiticsfiles\\12100144.csv"
+        },
+        "contextExpression": [
+          "let",
+          "    #\"0001\" = Csv.Document(..., [Delimiter = \",\", Columns = 18, Encoding = 65001, QuoteStyle = QuoteStyle.None]),",
+          "    #\"0002\" = Table.PromoteHeaders(#\"0001\", [PromoteAllScalars = true]),",
+          "    #\"0003\" = Table.TransformColumnTypes(#\"0002\", {{\"REF_DATE\", type date}, {\"GEO\", type text}, {\"DGUID\", type text}, {\"Trade\", type text}, {\"Trade partners\", type text}, {\"Service categories\", type text}, {\"Seasonal adjustment \", type text}, {\"UOM\", type text}, {\"UOM_ID\", Int64.Type}, {\"SCALAR_FACTOR\", type text}, {\"SCALAR_ID\", Int64.Type}, {\"VECTOR\", type text}, {\"COORDINATE\", type text}, {\"VALUE\", Int64.Type}, {\"STATUS\", type text}, {\"SYMBOL\", type text}, {\"TERMINATED\", type text}, {\"DECIMALS\", Int64.Type}})",
+          "in",
+          "    #\"0003\""
+        ]
+      },
+      {
+        "type": "structured",
+        "name": "File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatitics (6)",
+        "connectionDetails": {
+          "protocol": "file",
+          "address": {
+            "path": "C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatiticsFiles\\NAPCS.csv"
+          },
+          "authentication": null,
+          "query": null
+        },
+        "credential": {
+          "AuthenticationKind": "ServiceAccount",
+          "kind": "File",
+          "path": "c:\\users\\admin\\documents\\projects\\data staging\\tradedata\\tradestatiticsfiles\\napcs.csv"
+        },
+        "contextExpression": [
+          "let",
+          "    #\"0001\" = Csv.Document(..., [Delimiter = \",\", Columns = 2, Encoding = 65001, QuoteStyle = QuoteStyle.None]),",
+          "    #\"0002\" = Table.PromoteHeaders(#\"0001\", [PromoteAllScalars = true]),",
+          "    #\"0003\" = Table.TransformColumnTypes(#\"0002\", {{\"NAPCSID\", Int64.Type}, {\"North American Product Classification System (NAPCS)\", type text}})",
+          "in",
+          "    #\"0003\""
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "name": "International merchandise Trade (All countriesPrincipal Trade Partners)",
+        "columns": [
+          {
+            "name": "IMTCPTP_ID",
+            "dataType": "int64",
+            "sourceColumn": "IMTCPTP_ID"
+          },
+          {
+            "name": "Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Date"
+          },
+          {
+            "name": "Location",
+            "dataType": "string",
+            "sourceColumn": "Location"
+          },
+          {
+            "name": "Terms_Of_Trade",
+            "dataType": "string",
+            "sourceColumn": "Terms_Of_Trade"
+          },
+          {
+            "name": "Trade_Basis",
+            "dataType": "string",
+            "sourceColumn": "Trade_Basis"
+          },
+          {
+            "name": "Seasonal_Adjustment",
+            "dataType": "string",
+            "sourceColumn": "Seasonal_Adjustment"
+          },
+          {
+            "name": "Principal_Trading_Partners",
+            "dataType": "string",
+            "sourceColumn": "Principal_Trading_Partners"
+          },
+          {
+            "name": "Trade_Value",
+            "dataType": "double",
+            "sourceColumn": "Trade_Value"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source=#\"File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatiticsFile\",",
+                "    #\"Removed Unwanted Columns\" = Table.RemoveColumns(Source,{\"STATUS\", \"SYMBOL\", \"TERMINATED\", \"DECIMALS\", \"COORDINATE\", \"VECTOR\", \"SCALAR_ID\", \"UOM\", \"UOM_ID\", \"SCALAR_FACTOR\", \"DGUID\"}),",
+                "    #\"Renamed Columns to USer Friendly Names\" = Table.RenameColumns(#\"Removed Unwanted Columns\",{{\"Basis\", \"Trade_Basis\"}, {\"Trade\", \"Terms_Of_Trade\"}, {\"GEO\", \"Location\"}, {\"VALUE\", \"Trade_Value\"}, {\"Principal trading partners\",\"Principal_Trading_Partners\"}, {\"REF_DATE\",\"Date\"}, {\"Seasonal adjustment\", \"Seasonal_Adjustment\"}}),",
+                "    #\"Filtered Date Column to Start from 2018\" = Table.SelectRows(#\"Renamed Columns to USer Friendly Names\", each [Date] > #date(2017, 12, 31)),",
+                "    #\"Added ID Column to serve as Primary Key\" = Table.AddIndexColumn(#\"Filtered Date Column to Start from 2018\", \"Index\", 1, 1, Int64.Type),",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Added ID Column to serve as Primary Key\",{\"Index\", \"Date\", \"Location\", \"Terms_Of_Trade\", \"Trade_Basis\", \"Seasonal_Adjustment\", \"Principal_Trading_Partners\", \"Trade_Value\"}),",
+                "    #\"Changed PK to User Friendly Name\" = Table.RenameColumns(#\"Reordered Columns\",{{\"Index\", \"IMTCPTP_ID\"}})",
+                "in",
+                "    #\"Changed PK to User Friendly Name\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Terms of Trade",
+        "columns": [
+          {
+            "name": "TOT_ID",
+            "dataType": "int64",
+            "sourceColumn": "TOT_ID"
+          },
+          {
+            "name": "Terms_Of_Trade",
+            "dataType": "string",
+            "sourceColumn": "Terms_Of_Trade"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source=#\"File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatiticsFile\",",
+                "    #\"Removed Unwanted Columns\" = Table.RemoveColumns(Source,{\"STATUS\", \"SYMBOL\", \"TERMINATED\", \"DECIMALS\", \"COORDINATE\", \"VECTOR\", \"SCALAR_ID\", \"UOM\", \"UOM_ID\", \"SCALAR_FACTOR\", \"DGUID\"}),",
+                "    #\"Renamed Columns to USer Friendly Names\" = Table.RenameColumns(#\"Removed Unwanted Columns\",{{\"Basis\", \"Trade_Basis\"}, {\"Trade\", \"Terms_Of_Trade\"}, {\"GEO\", \"Location\"}, {\"VALUE\", \"Trade_Value\"}, {\"Principal trading partners\",\"Principal_Trading_Partners\"}, {\"REF_DATE\",\"Date\"}, {\"Seasonal adjustment\", \"Seasonal_Adjustment\"}}),",
+                "    #\"Added ID Column to serve as Primary Key\" = Table.AddIndexColumn(#\"Renamed Columns to USer Friendly Names\", \"Index\", 1, 1, Int64.Type),",
+                "    #\"Filtered Date Column to Start from 2018\" = Table.SelectRows(#\"Added ID Column to serve as Primary Key\", each [Date] > #date(2017, 12, 31)),",
+                "    #\"Removed Other Columns\" = Table.SelectColumns(#\"Filtered Date Column to Start from 2018\",{\"Terms_Of_Trade\"}),",
+                "    #\"Removed Duplicates Values of Terms of Trade\" = Table.Distinct(#\"Removed Other Columns\"),",
+                "    #\"Sorted Rows A-Z\" = Table.Sort(#\"Removed Duplicates Values of Terms of Trade\",{{\"Terms_Of_Trade\", Order.Ascending}}),",
+                "    #\"Add Index/Primary key\" = Table.AddIndexColumn(#\"Sorted Rows A-Z\", \"Index\", 1, 1, Int64.Type),",
+                "    #\"Renamed Index Table to Friendly Primary Key Name\" = Table.RenameColumns(#\"Add Index/Primary key\",{{\"Index\", \"TOT_ID\"}}),",
+                "    #\"Moved Index table to Beginning\" = Table.ReorderColumns(#\"Renamed Index Table to Friendly Primary Key Name\",{\"TOT_ID\", \"Terms_Of_Trade\"})",
+                "in",
+                "    #\"Moved Index table to Beginning\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Trade Basis",
+        "columns": [
+          {
+            "name": "TB_ID",
+            "dataType": "int64",
+            "sourceColumn": "TB_ID"
+          },
+          {
+            "name": "Trade_Basis",
+            "dataType": "string",
+            "sourceColumn": "Trade_Basis"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source=#\"File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatiticsFile\",",
+                "    #\"Removed Unwanted Columns\" = Table.RemoveColumns(Source,{\"STATUS\", \"SYMBOL\", \"TERMINATED\", \"DECIMALS\", \"COORDINATE\", \"VECTOR\", \"SCALAR_ID\", \"UOM\", \"UOM_ID\", \"SCALAR_FACTOR\", \"DGUID\"}),",
+                "    #\"Renamed Columns to USer Friendly Names\" = Table.RenameColumns(#\"Removed Unwanted Columns\",{{\"Basis\", \"Trade_Basis\"}, {\"Trade\", \"Terms_Of_Trade\"}, {\"GEO\", \"Location\"}, {\"VALUE\", \"Trade_Value\"}, {\"Principal trading partners\",\"Principal_Trading_Partners\"}, {\"REF_DATE\",\"Date\"}, {\"Seasonal adjustment\", \"Seasonal_Adjustment\"}}),",
+                "    #\"Added ID Column to serve as Primary Key\" = Table.AddIndexColumn(#\"Renamed Columns to USer Friendly Names\", \"Index\", 1, 1, Int64.Type),",
+                "    #\"Filtered Date Column to Start from 2018\" = Table.SelectRows(#\"Added ID Column to serve as Primary Key\", each [Date] > #date(2017, 12, 31)),",
+                "    #\"Removed Other Columns\" = Table.SelectColumns(#\"Filtered Date Column to Start from 2018\",{\"Trade_Basis\"}),",
+                "    #\"Removed Duplicates\" = Table.Distinct(#\"Removed Other Columns\"),",
+                "    #\"Sorted Colum A - Z\" = Table.Sort(#\"Removed Duplicates\",{{\"Trade_Basis\", Order.Ascending}}),",
+                "    #\"Added Index/ID as Primary Key\" = Table.AddIndexColumn(#\"Sorted Colum A - Z\", \"Index\", 1, 1, Int64.Type),",
+                "    #\"Changed Primary Key to User Friendly Name\" = Table.RenameColumns(#\"Added Index/ID as Primary Key\",{{\"Index\", \"TB_ID\"}}),",
+                "    #\"Moved Primary Key to Beginning of Table\" = Table.ReorderColumns(#\"Changed Primary Key to User Friendly Name\",{\"TB_ID\", \"Trade_Basis\"})",
+                "in",
+                "    #\"Moved Primary Key to Beginning of Table\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Principal Trading Partner",
+        "columns": [
+          {
+            "name": "PTP_ID",
+            "dataType": "int64",
+            "sourceColumn": "PTP_ID"
+          },
+          {
+            "name": "Principal_Trading_Partners",
+            "dataType": "string",
+            "sourceColumn": "Principal_Trading_Partners"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source=#\"File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatiticsFile\",",
+                "    #\"Removed Unwanted Columns\" = Table.RemoveColumns(Source,{\"STATUS\", \"SYMBOL\", \"TERMINATED\", \"DECIMALS\", \"COORDINATE\", \"VECTOR\", \"SCALAR_ID\", \"UOM\", \"UOM_ID\", \"SCALAR_FACTOR\", \"DGUID\"}),",
+                "    #\"Renamed Columns to USer Friendly Names\" = Table.RenameColumns(#\"Removed Unwanted Columns\",{{\"Basis\", \"Trade_Basis\"}, {\"Trade\", \"Terms_Of_Trade\"}, {\"GEO\", \"Location\"}, {\"VALUE\", \"Trade_Value\"}, {\"Principal trading partners\",\"Principal_Trading_Partners\"}, {\"REF_DATE\",\"Date\"}, {\"Seasonal adjustment\", \"Seasonal_Adjustment\"}}),",
+                "    #\"Added ID Column to serve as Primary Key\" = Table.AddIndexColumn(#\"Renamed Columns to USer Friendly Names\", \"Index\", 1, 1, Int64.Type),",
+                "    #\"Filtered Date Column to Start from 2018\" = Table.SelectRows(#\"Added ID Column to serve as Primary Key\", each [Date] > #date(2017, 12, 31)),",
+                "    #\"Removed Other Columns\" = Table.SelectColumns(#\"Filtered Date Column to Start from 2018\",{\"Principal_Trading_Partners\"}),",
+                "    #\"Removed Duplicates\" = Table.Distinct(#\"Removed Other Columns\"),",
+                "    #\"Sorted Rows A - Z\" = Table.Sort(#\"Removed Duplicates\",{{\"Principal_Trading_Partners\", Order.Ascending}}),",
+                "    #\"Added Primary Key to Table\" = Table.AddIndexColumn(#\"Sorted Rows A - Z\", \"Index\", 1, 1, Int64.Type),",
+                "    #\"Changed PK to user Friendly Name\" = Table.RenameColumns(#\"Added Primary Key to Table\",{{\"Index\", \"PTP_ID\"}}),",
+                "    #\"Moved PK Column to Beginning of Table\" = Table.ReorderColumns(#\"Changed PK to user Friendly Name\",{\"PTP_ID\", \"Principal_Trading_Partners\"})",
+                "in",
+                "    #\"Moved PK Column to Beginning of Table\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "International Merchandise Trade by Province and Commodity",
+        "columns": [
+          {
+            "name": "Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Date"
+          },
+          {
+            "name": "Location",
+            "dataType": "string",
+            "sourceColumn": "Location"
+          },
+          {
+            "name": "Terms_of_Trade",
+            "dataType": "string",
+            "sourceColumn": "Terms_of_Trade"
+          },
+          {
+            "name": "North_American_Product_Classification_System_(NAPCS).1",
+            "dataType": "string",
+            "sourceColumn": "North_American_Product_Classification_System_(NAPCS).1"
+          },
+          {
+            "name": "Principal_Trading_Partners",
+            "dataType": "string",
+            "sourceColumn": "Principal_Trading_Partners"
+          },
+          {
+            "name": "Trade_Value.Custom",
+            "dataType": "decimal",
+            "sourceColumn": "Trade_Value.Custom"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source=#\"File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatitics (2)\",",
+                "    #\"Removed Unwanted Columns\" = Table.RemoveColumns(Source,{\"STATUS\", \"SYMBOL\", \"TERMINATED\", \"DECIMALS\", \"VECTOR\", \"COORDINATE\", \"UOM\", \"UOM_ID\", \"SCALAR_FACTOR\", \"SCALAR_ID\", \"DGUID\"}),",
+                "    #\"Changed Column Names\" = Table.RenameColumns(#\"Removed Unwanted Columns\",{{\"North American Product Classification System (NAPCS)\", \"North_American_Product_Classification_System_(NAPCS)\"}, {\"Trade\", \"Terms_of_Trade\"}, {\"GEO\", \"Location\"}, {\"REF_DATE\", \"Date\"}, {\"Principal trading partners\", \"Principal_Trading_Partners\"}, {\"VALUE\", \"Trade_Value\"}}),",
+                "    #\"Converted column Value from thousands to Millions\" = Table.AddColumn(#\"Changed Column Names\", \"Trade_Value.Custom\", each [Trade_Value]/1000000),",
+                "    #\"Changed Column Type to Currency\" = Table.TransformColumnTypes(#\"Converted column Value from thousands to Millions\",{{\"Trade_Value.Custom\", Currency.Type}}),",
+                "    #\"Removed Trade Value (000 Dollars) after conversio\" = Table.RemoveColumns(#\"Changed Column Type to Currency\",{\"Trade_Value\"}),",
+                "    #\"Removed Total of all Merchandise to avoid redundancy\" = Table.SelectRows(#\"Removed Trade Value (000 Dollars) after conversio\", each ([#\"North_American_Product_Classification_System_(NAPCS)\"] <> \"Total of all merchandise\")),",
+                "    #\"Split column to remove numerical values of NAPCS\" = Table.SplitColumn(#\"Removed Total of all Merchandise to avoid redundancy\", \"North_American_Product_Classification_System_(NAPCS)\", Splitter.SplitTextByDelimiter(\"[\", QuoteStyle.Csv), {\"North_American_Product_Classification_System_(NAPCS).1\", \"North_American_Product_Classification_System_(NAPCS).2\"}),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Split column to remove numerical values of NAPCS\",{{\"North_American_Product_Classification_System_(NAPCS).1\", type text}, {\"North_American_Product_Classification_System_(NAPCS).2\", type text}}),",
+                "    #\"Removed Numerical Value\" = Table.RemoveColumns(#\"Changed Type\",{\"North_American_Product_Classification_System_(NAPCS).2\"}),",
+                "    #\"Filtered Date to only 2018\" = Table.SelectRows(#\"Removed Numerical Value\", each [Date] > #date(2017, 12, 31)),",
+                "    #\"Filtered Rows\" = Table.SelectRows(#\"Filtered Date to only 2018\", each true)",
+                "in",
+                "    #\"Filtered Rows\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "North American Product Classification System (NAPCS)",
+        "columns": [
+          {
+            "name": "NAPCS_ID",
+            "dataType": "int64",
+            "sourceColumn": "NAPCS_ID"
+          },
+          {
+            "name": "North_American_Product_Classification_System_(NAPCS)",
+            "dataType": "string",
+            "sourceColumn": "North_American_Product_Classification_System_(NAPCS)"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source=#\"File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatitics (2)\",",
+                "    #\"Removed Unwanted Columns\" = Table.RemoveColumns(Source,{\"STATUS\", \"SYMBOL\", \"TERMINATED\", \"DECIMALS\", \"VECTOR\", \"COORDINATE\", \"UOM\", \"UOM_ID\", \"SCALAR_FACTOR\", \"SCALAR_ID\", \"DGUID\"}),",
+                "    #\"Changed Column Names\" = Table.RenameColumns(#\"Removed Unwanted Columns\",{{\"North American Product Classification System (NAPCS)\", \"North_American_Product_Classification_System_(NAPCS)\"}, {\"Trade\", \"Terms_of_Trade\"}, {\"GEO\", \"Location\"}, {\"REF_DATE\", \"Date\"}, {\"Principal trading partners\", \"Principal_Trading_Partners\"}, {\"VALUE\", \"Trade_Value\"}}),",
+                "    #\"Converted column Value from thousands to Millions\" = Table.AddColumn(#\"Changed Column Names\", \"Trade_Value.Custom\", each [Trade_Value]/1000000),",
+                "    #\"Changed Column Type to Currency\" = Table.TransformColumnTypes(#\"Converted column Value from thousands to Millions\",{{\"Trade_Value.Custom\", Currency.Type}}),",
+                "    #\"Removed Trade Value (000 Dollars) after conversio\" = Table.RemoveColumns(#\"Changed Column Type to Currency\",{\"Trade_Value\"}),",
+                "    #\"Removed Total of all Merchandise to avoid redundancy\" = Table.SelectRows(#\"Removed Trade Value (000 Dollars) after conversio\", each ([#\"North_American_Product_Classification_System_(NAPCS)\"] <> \"Total of all merchandise\")),",
+                "    #\"Split column to remove numerical values of NAPCS\" = Table.SplitColumn(#\"Removed Total of all Merchandise to avoid redundancy\", \"North_American_Product_Classification_System_(NAPCS)\", Splitter.SplitTextByDelimiter(\"[\", QuoteStyle.Csv), {\"North_American_Product_Classification_System_(NAPCS).1\", \"North_American_Product_Classification_System_(NAPCS).2\"}),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Split column to remove numerical values of NAPCS\",{{\"North_American_Product_Classification_System_(NAPCS).1\", type text}, {\"North_American_Product_Classification_System_(NAPCS).2\", type text}}),",
+                "    #\"Removed Numerical Value\" = Table.RemoveColumns(#\"Changed Type\",{\"North_American_Product_Classification_System_(NAPCS).2\"}),",
+                "    #\"Filtered Date to only 2018\" = Table.SelectRows(#\"Removed Numerical Value\", each [Date] > #date(2017, 12, 31)),",
+                "    #\"Removed Other Columns\" = Table.SelectColumns(#\"Filtered Date to only 2018\",{\"North_American_Product_Classification_System_(NAPCS).1\"}),",
+                "    #\"Removed Duplicates\" = Table.Distinct(#\"Removed Other Columns\"),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Removed Duplicates\",{{\"North_American_Product_Classification_System_(NAPCS).1\", \"North_American_Product_Classification_System_(NAPCS)\"}}),",
+                "    #\"Sorted Rows\" = Table.Sort(#\"Renamed Columns\",{{\"North_American_Product_Classification_System_(NAPCS)\", Order.Ascending}}),",
+                "    #\"Added Index\" = Table.AddIndexColumn(#\"Sorted Rows\", \"Index\", 1, 1, Int64.Type),",
+                "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Added Index\",{{\"Index\", \"NAPCS_ID\"}}),",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Renamed Columns1\",{\"NAPCS_ID\", \"North_American_Product_Classification_System_(NAPCS)\"})",
+                "in",
+                "    #\"Reordered Columns\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Trade_Locations",
+        "columns": [
+          {
+            "name": "Location_ID",
+            "dataType": "int64",
+            "sourceColumn": "Location_ID"
+          },
+          {
+            "name": "Location",
+            "dataType": "string",
+            "sourceColumn": "Location"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source=#\"File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatitics (2)\",",
+                "    #\"Removed Unwanted Columns\" = Table.RemoveColumns(Source,{\"STATUS\", \"SYMBOL\", \"TERMINATED\", \"DECIMALS\", \"VECTOR\", \"COORDINATE\", \"UOM\", \"UOM_ID\", \"SCALAR_FACTOR\", \"SCALAR_ID\", \"DGUID\"}),",
+                "    #\"Changed Column Names\" = Table.RenameColumns(#\"Removed Unwanted Columns\",{{\"North American Product Classification System (NAPCS)\", \"North_American_Product_Classification_System_(NAPCS)\"}, {\"Trade\", \"Terms_of_Trade\"}, {\"GEO\", \"Location\"}, {\"REF_DATE\", \"Date\"}, {\"Principal trading partners\", \"Principal_Trading_Partners\"}, {\"VALUE\", \"Trade_Value\"}}),",
+                "    #\"Converted column Value from thousands to Millions\" = Table.AddColumn(#\"Changed Column Names\", \"Trade_Value.Custom\", each [Trade_Value]/1000000),",
+                "    #\"Changed Column Type to Currency\" = Table.TransformColumnTypes(#\"Converted column Value from thousands to Millions\",{{\"Trade_Value.Custom\", Currency.Type}}),",
+                "    #\"Removed Trade Value (000 Dollars) after conversio\" = Table.RemoveColumns(#\"Changed Column Type to Currency\",{\"Trade_Value\"}),",
+                "    #\"Removed Total of all Merchandise to avoid redundancy\" = Table.SelectRows(#\"Removed Trade Value (000 Dollars) after conversio\", each ([#\"North_American_Product_Classification_System_(NAPCS)\"] <> \"Total of all merchandise\")),",
+                "    #\"Split column to remove numerical values of NAPCS\" = Table.SplitColumn(#\"Removed Total of all Merchandise to avoid redundancy\", \"North_American_Product_Classification_System_(NAPCS)\", Splitter.SplitTextByDelimiter(\"[\", QuoteStyle.Csv), {\"North_American_Product_Classification_System_(NAPCS).1\", \"North_American_Product_Classification_System_(NAPCS).2\"}),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Split column to remove numerical values of NAPCS\",{{\"North_American_Product_Classification_System_(NAPCS).1\", type text}, {\"North_American_Product_Classification_System_(NAPCS).2\", type text}}),",
+                "    #\"Removed Numerical Value\" = Table.RemoveColumns(#\"Changed Type\",{\"North_American_Product_Classification_System_(NAPCS).2\"}),",
+                "    #\"Filtered Date to only 2018\" = Table.SelectRows(#\"Removed Numerical Value\", each [Date] > #date(2017, 12, 31)),",
+                "    #\"Filtered Rows\" = Table.SelectRows(#\"Filtered Date to only 2018\", each true),",
+                "    #\"Removed Other Columns\" = Table.SelectColumns(#\"Filtered Rows\",{\"Location\"}),",
+                "    #\"Removed Duplicates to leave only Unique Values of Location\" = Table.Distinct(#\"Removed Other Columns\"),",
+                "    #\"Sorted Rows A - Z\" = Table.Sort(#\"Removed Duplicates to leave only Unique Values of Location\",{{\"Location\", Order.Ascending}}),",
+                "    #\"Added Index as Primary Key\" = Table.AddIndexColumn(#\"Sorted Rows A - Z\", \"Index\", 1, 1, Int64.Type),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Added Index as Primary Key\",{{\"Index\", \"Location_ID\"}}),",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Renamed Columns\",{\"Location_ID\", \"Location\"})",
+                "in",
+                "    #\"Reordered Columns\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Terms of Trade2",
+        "columns": [
+          {
+            "name": "TOT_ID",
+            "dataType": "int64",
+            "sourceColumn": "TOT_ID"
+          },
+          {
+            "name": "Terms_of_Trade",
+            "dataType": "string",
+            "sourceColumn": "Terms_of_Trade"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source=#\"File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatitics (2)\",",
+                "    #\"Removed Unwanted Columns\" = Table.RemoveColumns(Source,{\"STATUS\", \"SYMBOL\", \"TERMINATED\", \"DECIMALS\", \"VECTOR\", \"COORDINATE\", \"UOM\", \"UOM_ID\", \"SCALAR_FACTOR\", \"SCALAR_ID\", \"DGUID\"}),",
+                "    #\"Changed Column Names\" = Table.RenameColumns(#\"Removed Unwanted Columns\",{{\"North American Product Classification System (NAPCS)\", \"North_American_Product_Classification_System_(NAPCS)\"}, {\"Trade\", \"Terms_of_Trade\"}, {\"GEO\", \"Location\"}, {\"REF_DATE\", \"Date\"}, {\"Principal trading partners\", \"Principal_Trading_Partners\"}, {\"VALUE\", \"Trade_Value\"}}),",
+                "    #\"Converted column Value from thousands to Millions\" = Table.AddColumn(#\"Changed Column Names\", \"Trade_Value.Custom\", each [Trade_Value]/1000000),",
+                "    #\"Changed Column Type to Currency\" = Table.TransformColumnTypes(#\"Converted column Value from thousands to Millions\",{{\"Trade_Value.Custom\", Currency.Type}}),",
+                "    #\"Removed Trade Value (000 Dollars) after conversio\" = Table.RemoveColumns(#\"Changed Column Type to Currency\",{\"Trade_Value\"}),",
+                "    #\"Removed Total of all Merchandise to avoid redundancy\" = Table.SelectRows(#\"Removed Trade Value (000 Dollars) after conversio\", each ([#\"North_American_Product_Classification_System_(NAPCS)\"] <> \"Total of all merchandise\")),",
+                "    #\"Split column to remove numerical values of NAPCS\" = Table.SplitColumn(#\"Removed Total of all Merchandise to avoid redundancy\", \"North_American_Product_Classification_System_(NAPCS)\", Splitter.SplitTextByDelimiter(\"[\", QuoteStyle.Csv), {\"North_American_Product_Classification_System_(NAPCS).1\", \"North_American_Product_Classification_System_(NAPCS).2\"}),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Split column to remove numerical values of NAPCS\",{{\"North_American_Product_Classification_System_(NAPCS).1\", type text}, {\"North_American_Product_Classification_System_(NAPCS).2\", type text}}),",
+                "    #\"Removed Numerical Value\" = Table.RemoveColumns(#\"Changed Type\",{\"North_American_Product_Classification_System_(NAPCS).2\"}),",
+                "    #\"Filtered Date to only 2018\" = Table.SelectRows(#\"Removed Numerical Value\", each [Date] > #date(2017, 12, 31)),",
+                "    #\"Filtered Rows\" = Table.SelectRows(#\"Filtered Date to only 2018\", each true),",
+                "    #\"Removed Other Columns\" = Table.SelectColumns(#\"Filtered Rows\",{\"Terms_of_Trade\"}),",
+                "    #\"Removed Duplicates\" = Table.Distinct(#\"Removed Other Columns\"),",
+                "    #\"Added Index\" = Table.AddIndexColumn(#\"Removed Duplicates\", \"Index\", 1, 1, Int64.Type),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Added Index\",{{\"Index\", \"TOT_ID\"}}),",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Renamed Columns\",{\"TOT_ID\", \"Terms_of_Trade\"})",
+                "in",
+                "    #\"Reordered Columns\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "International merchandise trade by commodity (NAPCS)",
+        "columns": [
+          {
+            "name": "Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Date"
+          },
+          {
+            "name": "Location",
+            "dataType": "string",
+            "sourceColumn": "Location"
+          },
+          {
+            "name": "Terms_of_Trade",
+            "dataType": "string",
+            "sourceColumn": "Terms_of_Trade"
+          },
+          {
+            "name": "Basis_of_Trade",
+            "dataType": "string",
+            "sourceColumn": "Basis_of_Trade"
+          },
+          {
+            "name": "Seasonal_Adjustment",
+            "dataType": "string",
+            "sourceColumn": "Seasonal_Adjustment"
+          },
+          {
+            "name": "Nort_ American_Product_Classification_System_(NAPCS)",
+            "dataType": "string",
+            "sourceColumn": "Nort_ American_Product_Classification_System_(NAPCS)"
+          },
+          {
+            "name": "Trade_Value",
+            "dataType": "decimal",
+            "sourceColumn": "Trade_Value"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source=#\"File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatitics (3)\",",
+                "    #\"Removed Columns\" = Table.RemoveColumns(Source,{\"DGUID\", \"STATUS\", \"SYMBOL\", \"TERMINATED\", \"DECIMALS\", \"UOM\", \"UOM_ID\", \"SCALAR_FACTOR\", \"SCALAR_ID\", \"VECTOR\", \"COORDINATE\"}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Removed Columns\",{{\"VALUE\", \"Trade_Value\"}, {\"North American Product Classification System (NAPCS)\", \"Nort_ American_Product_Classification_System_(NAPCS)\"}, {\"Basis\", \"Basis_of_Trade\"}, {\"Seasonal adjustment\", \"Seasonal_Adjustment\"}, {\"Trade\", \"Terms_of_Trade\"}, {\"GEO\", \"Location\"}, {\"REF_DATE\", \"Date\"}}),",
+                "    #\"Filtered Rows\" = Table.SelectRows(#\"Renamed Columns\", each true),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Filtered Rows\",{{\"Trade_Value\", Currency.Type}}),",
+                "    #\"Split Column by Delimiter\" = Table.SplitColumn(#\"Changed Type\", \"Nort_ American_Product_Classification_System_(NAPCS)\", Splitter.SplitTextByDelimiter(\"[\", QuoteStyle.Csv), {\"Nort_ American_Product_Classification_System_(NAPCS).1\", \"Nort_ American_Product_Classification_System_(NAPCS).2\"}),",
+                "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Split Column by Delimiter\",{{\"Nort_ American_Product_Classification_System_(NAPCS).1\", type text}, {\"Nort_ American_Product_Classification_System_(NAPCS).2\", type text}}),",
+                "    #\"Removed Columns1\" = Table.RemoveColumns(#\"Changed Type1\",{\"Nort_ American_Product_Classification_System_(NAPCS).2\"}),",
+                "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Removed Columns1\",{{\"Nort_ American_Product_Classification_System_(NAPCS).1\", \"Nort_ American_Product_Classification_System_(NAPCS)\"}}),",
+                "    #\"Filtered Rows1\" = Table.SelectRows(#\"Renamed Columns1\", each [Date] > #date(2017, 12, 31)),",
+                "    #\"Cleaned Up columns to remove Duplicates\" = Table.Distinct(#\"Filtered Rows1\", {\"Trade_Value\"}),",
+                "    #\"Filtered Rows2\" = Table.SelectRows(#\"Cleaned Up columns to remove Duplicates\", each ([#\"Nort_ American_Product_Classification_System_(NAPCS)\"] <> \"Total of all merchandise\"))",
+                "in",
+                "    #\"Filtered Rows2\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "International trade in services",
+        "columns": [
+          {
+            "name": "Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Date"
+          },
+          {
+            "name": "Location",
+            "dataType": "string",
+            "sourceColumn": "Location"
+          },
+          {
+            "name": "Terms_of_Trade",
+            "dataType": "string",
+            "sourceColumn": "Terms_of_Trade"
+          },
+          {
+            "name": "Trade_Partners",
+            "dataType": "string",
+            "sourceColumn": "Trade_Partners"
+          },
+          {
+            "name": "Service_ categories",
+            "dataType": "string",
+            "sourceColumn": "Service_ categories"
+          },
+          {
+            "name": "Seasonal_Adjustment",
+            "dataType": "string",
+            "sourceColumn": "Seasonal_Adjustment"
+          },
+          {
+            "name": "Trade_Value",
+            "dataType": "int64",
+            "sourceColumn": "Trade_Value"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source=#\"File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatitics (5)\",",
+                "    #\"Removed Columns\" = Table.RemoveColumns(Source,{\"STATUS\", \"SYMBOL\", \"TERMINATED\", \"DECIMALS\", \"UOM\", \"UOM_ID\", \"SCALAR_FACTOR\", \"SCALAR_ID\", \"VECTOR\", \"COORDINATE\", \"DGUID\"}),",
+                "    #\"Replaced Value\" = Table.ReplaceValue(#\"Removed Columns\",\"Exports (receipts)\",\"Exports\",Replacer.ReplaceText,{\"Trade\"}),",
+                "    #\"Replaced Value1\" = Table.ReplaceValue(#\"Replaced Value\",\"Imports (payments)\",\"Imports\",Replacer.ReplaceText,{\"Trade\"}),",
+                "    #\"Filtered Rows\" = Table.SelectRows(#\"Replaced Value1\", each [REF_DATE] > #date(2017, 12, 31)),",
+                "    #\"Filtered Rows1\" = Table.SelectRows(#\"Filtered Rows\", each true),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Filtered Rows1\",{{\"GEO\", \"Location\"}, {\"REF_DATE\", \"Date\"}, {\"Trade\", \"Terms_of_Trade\"}, {\"Trade partners\", \"Trade_Partners\"}, {\"Service categories\", \"Service_ categories\"}, {\"Seasonal adjustment \", \"Seasonal_Adjustment\"}, {\"VALUE\", \"Trade_Value\"}})",
+                "in",
+                "    #\"Renamed Columns\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Service Category",
+        "columns": [
+          {
+            "name": "ServiceCategoryID",
+            "dataType": "int64",
+            "sourceColumn": "ServiceCategoryID"
+          },
+          {
+            "name": "Service_ categories",
+            "dataType": "string",
+            "sourceColumn": "Service_ categories"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source=#\"File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatitics (5)\",",
+                "    #\"Removed Columns\" = Table.RemoveColumns(Source,{\"STATUS\", \"SYMBOL\", \"TERMINATED\", \"DECIMALS\", \"UOM\", \"UOM_ID\", \"SCALAR_FACTOR\", \"SCALAR_ID\", \"VECTOR\", \"COORDINATE\", \"DGUID\"}),",
+                "    #\"Replaced Value\" = Table.ReplaceValue(#\"Removed Columns\",\"Exports (receipts)\",\"Exports\",Replacer.ReplaceText,{\"Trade\"}),",
+                "    #\"Replaced Value1\" = Table.ReplaceValue(#\"Replaced Value\",\"Imports (payments)\",\"Imports\",Replacer.ReplaceText,{\"Trade\"}),",
+                "    #\"Filtered Rows\" = Table.SelectRows(#\"Replaced Value1\", each [REF_DATE] > #date(2017, 12, 31)),",
+                "    #\"Filtered Rows1\" = Table.SelectRows(#\"Filtered Rows\", each true),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Filtered Rows1\",{{\"GEO\", \"Location\"}, {\"REF_DATE\", \"Date\"}, {\"Trade\", \"Terms_of_Trade\"}, {\"Trade partners\", \"Trade_Partners\"}, {\"Service categories\", \"Service_ categories\"}, {\"Seasonal adjustment \", \"Seasonal_Adjustment\"}, {\"VALUE\", \"Trade_Value\"}}),",
+                "    #\"Removed Other Columns\" = Table.SelectColumns(#\"Renamed Columns\",{\"Service_ categories\"}),",
+                "    #\"Removed Duplicates\" = Table.Distinct(#\"Removed Other Columns\"),",
+                "    #\"Sorted Rows\" = Table.Sort(#\"Removed Duplicates\",{{\"Service_ categories\", Order.Ascending}}),",
+                "    #\"Added Index\" = Table.AddIndexColumn(#\"Sorted Rows\", \"Index\", 1, 1, Int64.Type),",
+                "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Added Index\",{{\"Index\", \"ServiceCategoryID\"}}),",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Renamed Columns1\",{\"ServiceCategoryID\", \"Service_ categories\"})",
+                "in",
+                "    #\"Reordered Columns\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "NAPCS",
+        "columns": [
+          {
+            "name": "NAPCSID",
+            "dataType": "int64",
+            "sourceColumn": "NAPCSID"
+          },
+          {
+            "name": "North American Product Classification System (NAPCS)",
+            "dataType": "string",
+            "sourceColumn": "North American Product Classification System (NAPCS)"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source=#\"File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatitics (6)\"",
+                "in",
+                "    Source"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "700"
+      }
+    ]
+  },
+  "id": "SemanticModel"
+}
