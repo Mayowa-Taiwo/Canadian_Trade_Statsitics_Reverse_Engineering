@@ -153,6 +153,23 @@
           "in",
           "    #\"0003\""
         ]
+      },
+      {
+        "type": "structured",
+        "name": "SQL/ ;Canadian_Trade_Statistics_Staging",
+        "connectionDetails": {
+          "protocol": "tds",
+          "address": {
+            "server": ".",
+            "database": "Canadian_Trade_Statistics_Staging"
+          },
+          "authentication": null,
+          "query": null
+        },
+        "credential": {
+          "AuthenticationKind": "ServiceAccount",
+          "EncryptConnection": false
+        }
       }
     ],
     "tables": [
@@ -167,21 +184,25 @@
           {
             "name": "Date",
             "dataType": "dateTime",
+            "isHidden": true,
             "sourceColumn": "Date"
           },
           {
             "name": "Location",
             "dataType": "string",
+            "isHidden": true,
             "sourceColumn": "Location"
           },
           {
             "name": "Terms_Of_Trade",
             "dataType": "string",
+            "isHidden": true,
             "sourceColumn": "Terms_Of_Trade"
           },
           {
             "name": "Trade_Basis",
             "dataType": "string",
+            "isHidden": true,
             "sourceColumn": "Trade_Basis"
           },
           {
@@ -192,6 +213,7 @@
           {
             "name": "Principal_Trading_Partners",
             "dataType": "string",
+            "isHidden": true,
             "sourceColumn": "Principal_Trading_Partners"
           },
           {
@@ -348,21 +370,25 @@
           {
             "name": "Date",
             "dataType": "dateTime",
+            "isHidden": true,
             "sourceColumn": "Date"
           },
           {
             "name": "Location",
             "dataType": "string",
+            "isHidden": true,
             "sourceColumn": "Location"
           },
           {
             "name": "Terms_of_Trade",
             "dataType": "string",
+            "isHidden": true,
             "sourceColumn": "Terms_of_Trade"
           },
           {
             "name": "North_American_Product_Classification_System_(NAPCS).1",
             "dataType": "string",
+            "isHidden": true,
             "sourceColumn": "North_American_Product_Classification_System_(NAPCS).1"
           },
           {
@@ -371,50 +397,14 @@
             "sourceColumn": "Principal_Trading_Partners"
           },
           {
-            "name": "Trade_Value.Custom",
+            "name": "Trade_Value",
             "dataType": "decimal",
             "sourceColumn": "Trade_Value.Custom"
-          }
-        ],
-        "partitions": [
-          {
-            "name": "Partition",
-            "dataView": "full",
-            "source": {
-              "type": "m",
-              "expression": [
-                "let",
-                "    Source=#\"File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatitics (2)\",",
-                "    #\"Removed Unwanted Columns\" = Table.RemoveColumns(Source,{\"STATUS\", \"SYMBOL\", \"TERMINATED\", \"DECIMALS\", \"VECTOR\", \"COORDINATE\", \"UOM\", \"UOM_ID\", \"SCALAR_FACTOR\", \"SCALAR_ID\", \"DGUID\"}),",
-                "    #\"Changed Column Names\" = Table.RenameColumns(#\"Removed Unwanted Columns\",{{\"North American Product Classification System (NAPCS)\", \"North_American_Product_Classification_System_(NAPCS)\"}, {\"Trade\", \"Terms_of_Trade\"}, {\"GEO\", \"Location\"}, {\"REF_DATE\", \"Date\"}, {\"Principal trading partners\", \"Principal_Trading_Partners\"}, {\"VALUE\", \"Trade_Value\"}}),",
-                "    #\"Converted column Value from thousands to Millions\" = Table.AddColumn(#\"Changed Column Names\", \"Trade_Value.Custom\", each [Trade_Value]/1000000),",
-                "    #\"Changed Column Type to Currency\" = Table.TransformColumnTypes(#\"Converted column Value from thousands to Millions\",{{\"Trade_Value.Custom\", Currency.Type}}),",
-                "    #\"Removed Trade Value (000 Dollars) after conversio\" = Table.RemoveColumns(#\"Changed Column Type to Currency\",{\"Trade_Value\"}),",
-                "    #\"Removed Total of all Merchandise to avoid redundancy\" = Table.SelectRows(#\"Removed Trade Value (000 Dollars) after conversio\", each ([#\"North_American_Product_Classification_System_(NAPCS)\"] <> \"Total of all merchandise\")),",
-                "    #\"Split column to remove numerical values of NAPCS\" = Table.SplitColumn(#\"Removed Total of all Merchandise to avoid redundancy\", \"North_American_Product_Classification_System_(NAPCS)\", Splitter.SplitTextByDelimiter(\"[\", QuoteStyle.Csv), {\"North_American_Product_Classification_System_(NAPCS).1\", \"North_American_Product_Classification_System_(NAPCS).2\"}),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Split column to remove numerical values of NAPCS\",{{\"North_American_Product_Classification_System_(NAPCS).1\", type text}, {\"North_American_Product_Classification_System_(NAPCS).2\", type text}}),",
-                "    #\"Removed Numerical Value\" = Table.RemoveColumns(#\"Changed Type\",{\"North_American_Product_Classification_System_(NAPCS).2\"}),",
-                "    #\"Filtered Date to only 2018\" = Table.SelectRows(#\"Removed Numerical Value\", each [Date] > #date(2017, 12, 31)),",
-                "    #\"Filtered Rows\" = Table.SelectRows(#\"Filtered Date to only 2018\", each true)",
-                "in",
-                "    #\"Filtered Rows\""
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "name": "North American Product Classification System (NAPCS)",
-        "columns": [
-          {
-            "name": "NAPCS_ID",
-            "dataType": "int64",
-            "sourceColumn": "NAPCS_ID"
           },
           {
-            "name": "North_American_Product_Classification_System_(NAPCS)",
-            "dataType": "string",
-            "sourceColumn": "North_American_Product_Classification_System_(NAPCS)"
+            "name": "IMTBPC_ID",
+            "dataType": "int64",
+            "sourceColumn": "IMTBC_ID"
           }
         ],
         "partitions": [
@@ -436,13 +426,10 @@
                 "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Split column to remove numerical values of NAPCS\",{{\"North_American_Product_Classification_System_(NAPCS).1\", type text}, {\"North_American_Product_Classification_System_(NAPCS).2\", type text}}),",
                 "    #\"Removed Numerical Value\" = Table.RemoveColumns(#\"Changed Type\",{\"North_American_Product_Classification_System_(NAPCS).2\"}),",
                 "    #\"Filtered Date to only 2018\" = Table.SelectRows(#\"Removed Numerical Value\", each [Date] > #date(2017, 12, 31)),",
-                "    #\"Removed Other Columns\" = Table.SelectColumns(#\"Filtered Date to only 2018\",{\"North_American_Product_Classification_System_(NAPCS).1\"}),",
-                "    #\"Removed Duplicates\" = Table.Distinct(#\"Removed Other Columns\"),",
-                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Removed Duplicates\",{{\"North_American_Product_Classification_System_(NAPCS).1\", \"North_American_Product_Classification_System_(NAPCS)\"}}),",
-                "    #\"Sorted Rows\" = Table.Sort(#\"Renamed Columns\",{{\"North_American_Product_Classification_System_(NAPCS)\", Order.Ascending}}),",
-                "    #\"Added Index\" = Table.AddIndexColumn(#\"Sorted Rows\", \"Index\", 1, 1, Int64.Type),",
-                "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Added Index\",{{\"Index\", \"NAPCS_ID\"}}),",
-                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Renamed Columns1\",{\"NAPCS_ID\", \"North_American_Product_Classification_System_(NAPCS)\"})",
+                "    #\"Filtered Rows\" = Table.SelectRows(#\"Filtered Date to only 2018\", each true),",
+                "    #\"Added Index\" = Table.AddIndexColumn(#\"Filtered Rows\", \"Index\", 1, 1, Int64.Type),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Added Index\",{{\"Index\", \"IMTBC_ID\"}}),",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Renamed Columns\",{\"IMTBC_ID\", \"Date\", \"Location\", \"Terms_of_Trade\", \"North_American_Product_Classification_System_(NAPCS).1\", \"Principal_Trading_Partners\", \"Trade_Value.Custom\"})",
                 "in",
                 "    #\"Reordered Columns\""
               ]
@@ -498,72 +485,30 @@
         ]
       },
       {
-        "name": "Terms of Trade2",
-        "columns": [
-          {
-            "name": "TOT_ID",
-            "dataType": "int64",
-            "sourceColumn": "TOT_ID"
-          },
-          {
-            "name": "Terms_of_Trade",
-            "dataType": "string",
-            "sourceColumn": "Terms_of_Trade"
-          }
-        ],
-        "partitions": [
-          {
-            "name": "Partition",
-            "dataView": "full",
-            "source": {
-              "type": "m",
-              "expression": [
-                "let",
-                "    Source=#\"File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatitics (2)\",",
-                "    #\"Removed Unwanted Columns\" = Table.RemoveColumns(Source,{\"STATUS\", \"SYMBOL\", \"TERMINATED\", \"DECIMALS\", \"VECTOR\", \"COORDINATE\", \"UOM\", \"UOM_ID\", \"SCALAR_FACTOR\", \"SCALAR_ID\", \"DGUID\"}),",
-                "    #\"Changed Column Names\" = Table.RenameColumns(#\"Removed Unwanted Columns\",{{\"North American Product Classification System (NAPCS)\", \"North_American_Product_Classification_System_(NAPCS)\"}, {\"Trade\", \"Terms_of_Trade\"}, {\"GEO\", \"Location\"}, {\"REF_DATE\", \"Date\"}, {\"Principal trading partners\", \"Principal_Trading_Partners\"}, {\"VALUE\", \"Trade_Value\"}}),",
-                "    #\"Converted column Value from thousands to Millions\" = Table.AddColumn(#\"Changed Column Names\", \"Trade_Value.Custom\", each [Trade_Value]/1000000),",
-                "    #\"Changed Column Type to Currency\" = Table.TransformColumnTypes(#\"Converted column Value from thousands to Millions\",{{\"Trade_Value.Custom\", Currency.Type}}),",
-                "    #\"Removed Trade Value (000 Dollars) after conversio\" = Table.RemoveColumns(#\"Changed Column Type to Currency\",{\"Trade_Value\"}),",
-                "    #\"Removed Total of all Merchandise to avoid redundancy\" = Table.SelectRows(#\"Removed Trade Value (000 Dollars) after conversio\", each ([#\"North_American_Product_Classification_System_(NAPCS)\"] <> \"Total of all merchandise\")),",
-                "    #\"Split column to remove numerical values of NAPCS\" = Table.SplitColumn(#\"Removed Total of all Merchandise to avoid redundancy\", \"North_American_Product_Classification_System_(NAPCS)\", Splitter.SplitTextByDelimiter(\"[\", QuoteStyle.Csv), {\"North_American_Product_Classification_System_(NAPCS).1\", \"North_American_Product_Classification_System_(NAPCS).2\"}),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Split column to remove numerical values of NAPCS\",{{\"North_American_Product_Classification_System_(NAPCS).1\", type text}, {\"North_American_Product_Classification_System_(NAPCS).2\", type text}}),",
-                "    #\"Removed Numerical Value\" = Table.RemoveColumns(#\"Changed Type\",{\"North_American_Product_Classification_System_(NAPCS).2\"}),",
-                "    #\"Filtered Date to only 2018\" = Table.SelectRows(#\"Removed Numerical Value\", each [Date] > #date(2017, 12, 31)),",
-                "    #\"Filtered Rows\" = Table.SelectRows(#\"Filtered Date to only 2018\", each true),",
-                "    #\"Removed Other Columns\" = Table.SelectColumns(#\"Filtered Rows\",{\"Terms_of_Trade\"}),",
-                "    #\"Removed Duplicates\" = Table.Distinct(#\"Removed Other Columns\"),",
-                "    #\"Added Index\" = Table.AddIndexColumn(#\"Removed Duplicates\", \"Index\", 1, 1, Int64.Type),",
-                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Added Index\",{{\"Index\", \"TOT_ID\"}}),",
-                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Renamed Columns\",{\"TOT_ID\", \"Terms_of_Trade\"})",
-                "in",
-                "    #\"Reordered Columns\""
-              ]
-            }
-          }
-        ]
-      },
-      {
         "name": "International merchandise trade by commodity (NAPCS)",
         "columns": [
           {
             "name": "Date",
             "dataType": "dateTime",
+            "isHidden": true,
             "sourceColumn": "Date"
           },
           {
             "name": "Location",
             "dataType": "string",
+            "isHidden": true,
             "sourceColumn": "Location"
           },
           {
             "name": "Terms_of_Trade",
             "dataType": "string",
+            "isHidden": true,
             "sourceColumn": "Terms_of_Trade"
           },
           {
             "name": "Basis_of_Trade",
             "dataType": "string",
+            "isHidden": true,
             "sourceColumn": "Basis_of_Trade"
           },
           {
@@ -572,14 +517,20 @@
             "sourceColumn": "Seasonal_Adjustment"
           },
           {
-            "name": "Nort_ American_Product_Classification_System_(NAPCS)",
+            "name": "North_ American_Product_Classification_System_(NAPCS)",
             "dataType": "string",
+            "isHidden": true,
             "sourceColumn": "Nort_ American_Product_Classification_System_(NAPCS)"
           },
           {
             "name": "Trade_Value",
             "dataType": "decimal",
             "sourceColumn": "Trade_Value"
+          },
+          {
+            "name": "IMTBC_ID",
+            "dataType": "int64",
+            "sourceColumn": "IMTBC_ID"
           }
         ],
         "partitions": [
@@ -601,9 +552,12 @@
                 "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Removed Columns1\",{{\"Nort_ American_Product_Classification_System_(NAPCS).1\", \"Nort_ American_Product_Classification_System_(NAPCS)\"}}),",
                 "    #\"Filtered Rows1\" = Table.SelectRows(#\"Renamed Columns1\", each [Date] > #date(2017, 12, 31)),",
                 "    #\"Cleaned Up columns to remove Duplicates\" = Table.Distinct(#\"Filtered Rows1\", {\"Trade_Value\"}),",
-                "    #\"Filtered Rows2\" = Table.SelectRows(#\"Cleaned Up columns to remove Duplicates\", each ([#\"Nort_ American_Product_Classification_System_(NAPCS)\"] <> \"Total of all merchandise\"))",
+                "    #\"Filtered Rows2\" = Table.SelectRows(#\"Cleaned Up columns to remove Duplicates\", each ([#\"Nort_ American_Product_Classification_System_(NAPCS)\"] <> \"Total of all merchandise\")),",
+                "    #\"Added Index\" = Table.AddIndexColumn(#\"Filtered Rows2\", \"Index\", 1, 1, Int64.Type),",
+                "    #\"Renamed Columns2\" = Table.RenameColumns(#\"Added Index\",{{\"Index\", \"IMTBC_ID\"}}),",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Renamed Columns2\",{\"IMTBC_ID\", \"Date\", \"Location\", \"Terms_of_Trade\", \"Basis_of_Trade\", \"Seasonal_Adjustment\", \"Nort_ American_Product_Classification_System_(NAPCS)\", \"Trade_Value\"})",
                 "in",
-                "    #\"Filtered Rows2\""
+                "    #\"Reordered Columns\""
               ]
             }
           }
@@ -615,26 +569,31 @@
           {
             "name": "Date",
             "dataType": "dateTime",
+            "isHidden": true,
             "sourceColumn": "Date"
           },
           {
             "name": "Location",
             "dataType": "string",
+            "isHidden": true,
             "sourceColumn": "Location"
           },
           {
             "name": "Terms_of_Trade",
             "dataType": "string",
+            "isHidden": true,
             "sourceColumn": "Terms_of_Trade"
           },
           {
-            "name": "Trade_Partners",
+            "name": "Principal_Trade_Partners",
             "dataType": "string",
+            "isHidden": true,
             "sourceColumn": "Trade_Partners"
           },
           {
             "name": "Service_ categories",
             "dataType": "string",
+            "isHidden": true,
             "sourceColumn": "Service_ categories"
           },
           {
@@ -646,6 +605,11 @@
             "name": "Trade_Value",
             "dataType": "int64",
             "sourceColumn": "Trade_Value"
+          },
+          {
+            "name": "ITS_ID",
+            "dataType": "int64",
+            "sourceColumn": "ITS_ID"
           }
         ],
         "partitions": [
@@ -662,9 +626,12 @@
                 "    #\"Replaced Value1\" = Table.ReplaceValue(#\"Replaced Value\",\"Imports (payments)\",\"Imports\",Replacer.ReplaceText,{\"Trade\"}),",
                 "    #\"Filtered Rows\" = Table.SelectRows(#\"Replaced Value1\", each [REF_DATE] > #date(2017, 12, 31)),",
                 "    #\"Filtered Rows1\" = Table.SelectRows(#\"Filtered Rows\", each true),",
-                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Filtered Rows1\",{{\"GEO\", \"Location\"}, {\"REF_DATE\", \"Date\"}, {\"Trade\", \"Terms_of_Trade\"}, {\"Trade partners\", \"Trade_Partners\"}, {\"Service categories\", \"Service_ categories\"}, {\"Seasonal adjustment \", \"Seasonal_Adjustment\"}, {\"VALUE\", \"Trade_Value\"}})",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Filtered Rows1\",{{\"GEO\", \"Location\"}, {\"REF_DATE\", \"Date\"}, {\"Trade\", \"Terms_of_Trade\"}, {\"Trade partners\", \"Trade_Partners\"}, {\"Service categories\", \"Service_ categories\"}, {\"Seasonal adjustment \", \"Seasonal_Adjustment\"}, {\"VALUE\", \"Trade_Value\"}}),",
+                "    #\"Added Index\" = Table.AddIndexColumn(#\"Renamed Columns\", \"Index\", 1, 1, Int64.Type),",
+                "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Added Index\",{{\"Index\", \"ITS_ID\"}}),",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Renamed Columns1\",{\"ITS_ID\", \"Date\", \"Location\", \"Terms_of_Trade\", \"Trade_Partners\", \"Service_ categories\", \"Seasonal_Adjustment\", \"Trade_Value\"})",
                 "in",
-                "    #\"Renamed Columns\""
+                "    #\"Reordered Columns\""
               ]
             }
           }
@@ -739,6 +706,904 @@
                 "    Source"
               ]
             }
+          }
+        ]
+      },
+      {
+        "name": "Date Table",
+        "dataCategory": "Time",
+        "columns": [
+          {
+            "type": "calculatedTableColumn",
+            "name": "Date",
+            "dataType": "dateTime",
+            "isNameInferred": true,
+            "isDataTypeInferred": true,
+            "isKey": true,
+            "sourceColumn": "[Date]"
+          },
+          {
+            "type": "calculated",
+            "name": "Year",
+            "dataType": "int64",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "expression": "year('Date Table'[Date])"
+          },
+          {
+            "type": "calculated",
+            "name": "Quarter",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "expression": " \"Q\" & QUARTER('Date Table'[Date])"
+          },
+          {
+            "type": "calculated",
+            "name": "Month",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "expression": "FORMAT('Date Table'[Date],\"MMMM\")",
+            "sortByColumn": "MonthNo"
+          },
+          {
+            "type": "calculated",
+            "name": "Weekday",
+            "dataType": "int64",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "expression": " WEEKDAY('Date Table'[Date],2)"
+          },
+          {
+            "type": "calculated",
+            "name": "WeekNum",
+            "dataType": "int64",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "expression": "WEEKNUM('Date Table'[Date],1)"
+          },
+          {
+            "type": "calculated",
+            "name": "MonthNo",
+            "dataType": "int64",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "expression": "MONTH('Date Table'[Date])"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "CalculatedTable 1",
+            "source": {
+              "type": "calculated",
+              "expression": "CALENDARAUTO()"
+            }
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Fiscal Year",
+            "levels": [
+              {
+                "name": "Year",
+                "ordinal": 0,
+                "column": "Year"
+              },
+              {
+                "name": "Quarter",
+                "ordinal": 1,
+                "column": "Quarter"
+              },
+              {
+                "name": "Month",
+                "ordinal": 2,
+                "column": "Month"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "International merchandise trade ( price and volume indexes)",
+        "columns": [
+          {
+            "name": "Date",
+            "dataType": "dateTime",
+            "isHidden": true,
+            "sourceColumn": "REF_DATE"
+          },
+          {
+            "name": "Location",
+            "dataType": "string",
+            "isHidden": true,
+            "sourceColumn": "Location"
+          },
+          {
+            "name": "Terms_of_trade",
+            "dataType": "string",
+            "isHidden": true,
+            "sourceColumn": "Terms_of_trade"
+          },
+          {
+            "name": "Trade_Basis",
+            "dataType": "string",
+            "isHidden": true,
+            "sourceColumn": "Trade_Basis"
+          },
+          {
+            "name": "Seasonal_Adjustment",
+            "dataType": "string",
+            "sourceColumn": "Seasonal_Adjustment"
+          },
+          {
+            "name": "Index",
+            "dataType": "string",
+            "sourceColumn": "Index"
+          },
+          {
+            "name": "Weighting",
+            "dataType": "string",
+            "sourceColumn": "Weighting"
+          },
+          {
+            "name": "North_American_Product_Classification_ System_(NAPCS)",
+            "dataType": "string",
+            "isHidden": true,
+            "sourceColumn": "North_American_Product_Classification_ System_(NAPCS)"
+          },
+          {
+            "name": "Trade_Value",
+            "dataType": "double",
+            "sourceColumn": "Trade_Value"
+          },
+          {
+            "name": "IMTPVI_ID",
+            "dataType": "int64",
+            "sourceColumn": "IMTPVI_ID"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source=#\"File/C:\\Users\\admin\\Documents\\projects\\Data Staging\\TradeData\\TradeStatitics (4)\",",
+                "    #\"Removed Unwanted Columns\" = Table.RemoveColumns(Source,{\"STATUS\", \"SYMBOL\", \"TERMINATED\", \"DECIMALS\", \"UOM\", \"UOM_ID\", \"SCALAR_FACTOR\", \"SCALAR_ID\", \"VECTOR\", \"COORDINATE\", \"DGUID\"}),",
+                "    #\"Split NAPCS Column to clean Unwanted Values\" = Table.SplitColumn(#\"Removed Unwanted Columns\", \"North American Product Classification System (NAPCS)\", Splitter.SplitTextByDelimiter(\"[\", QuoteStyle.Csv), {\"North American Product Classification System (NAPCS).1\", \"North American Product Classification System (NAPCS).2\"}),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Split NAPCS Column to clean Unwanted Values\",{{\"North American Product Classification System (NAPCS).1\", type text}, {\"North American Product Classification System (NAPCS).2\", type text}}),",
+                "    #\"Removed Unwanted Part of SPlit Column\" = Table.RemoveColumns(#\"Changed Type\",{\"North American Product Classification System (NAPCS).2\"}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Removed Unwanted Part of SPlit Column\",{{\"North American Product Classification System (NAPCS).1\", \"North American Product Classification System (NAPCS)\"}}),",
+                "    #\"Removed Duplicates in Value Columns\" = Table.Distinct(#\"Renamed Columns\", {\"VALUE\"}),",
+                "    #\"Filtered Rows\" = Table.SelectRows(#\"Removed Duplicates in Value Columns\", each true),",
+                "    #\"Renamed Colums to user Friendly Names\" = Table.RenameColumns(#\"Filtered Rows\",{{\"GEO\", \"Location\"}, {\"Trade\", \"Terms_of_trade\"}, {\"Basis\", \"Trade_Basis\"}, {\"Seasonal adjustment\", \"Seasonal_Adjustment\"}, {\"North American Product Classification System (NAPCS)\", \"North_American_Product_Classification_ System_(NAPCS)\"}, {\"VALUE\", \"Trade_Value\"}}),",
+                "    #\"Filtered Date column to 2018\" = Table.SelectRows(#\"Renamed Colums to user Friendly Names\", each [REF_DATE] > #date(2017, 12, 31)),",
+                "    #\"Added Index as Primary Key\" = Table.AddIndexColumn(#\"Filtered Date column to 2018\", \"Index.1\", 1, 1, Int64.Type),",
+                "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Added Index as Primary Key\",{{\"Index.1\", \"IMTPVI_ID\"}}),",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Renamed Columns1\",{\"IMTPVI_ID\", \"REF_DATE\", \"Location\", \"Terms_of_trade\", \"Trade_Basis\", \"Seasonal_Adjustment\", \"Index\", \"Weighting\", \"North_American_Product_Classification_ System_(NAPCS)\", \"Trade_Value\"})",
+                "in",
+                "    #\"Reordered Columns\""
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "dc8a318b-3a15-4052-b52b-ae77ebede05d",
+        "fromTable": "International merchandise Trade (All countriesPrincipal Trade Partners)",
+        "fromColumn": "Terms_Of_Trade",
+        "toTable": "Terms of Trade",
+        "toColumn": "Terms_Of_Trade"
+      },
+      {
+        "name": "c67e4a45-5e67-4093-aaca-cdb957aacc2b",
+        "fromTable": "International Merchandise Trade by Province and Commodity",
+        "fromColumn": "Terms_of_Trade",
+        "toTable": "Terms of Trade",
+        "toColumn": "Terms_Of_Trade"
+      },
+      {
+        "name": "97db3969-2cf6-4da6-b1e5-2423ccb17269",
+        "fromTable": "International merchandise Trade (All countriesPrincipal Trade Partners)",
+        "fromColumn": "Trade_Basis",
+        "toTable": "Trade Basis",
+        "toColumn": "Trade_Basis"
+      },
+      {
+        "name": "31a57a25-3993-4ce0-903b-11f363e7ff4f",
+        "fromTable": "International merchandise Trade (All countriesPrincipal Trade Partners)",
+        "fromColumn": "Principal_Trading_Partners",
+        "toTable": "Principal Trading Partner",
+        "toColumn": "Principal_Trading_Partners"
+      },
+      {
+        "name": "312a0598-2e3b-4366-93d9-b4496beda781",
+        "fromTable": "International Merchandise Trade by Province and Commodity",
+        "fromColumn": "Principal_Trading_Partners",
+        "toTable": "Principal Trading Partner",
+        "toColumn": "Principal_Trading_Partners"
+      },
+      {
+        "name": "d602d088-2f9e-46a4-a76f-c7550735b577",
+        "fromTable": "International merchandise trade by commodity (NAPCS)",
+        "fromColumn": "Terms_of_Trade",
+        "toTable": "Terms of Trade",
+        "toColumn": "Terms_Of_Trade"
+      },
+      {
+        "name": "d6f8142e-2262-481c-a339-7a7935ca91ac",
+        "fromTable": "International trade in services",
+        "fromColumn": "Principal_Trade_Partners",
+        "toTable": "Principal Trading Partner",
+        "toColumn": "Principal_Trading_Partners"
+      },
+      {
+        "name": "5270700f-bf55-49a4-a19f-dc1c86b2899b",
+        "fromTable": "International trade in services",
+        "fromColumn": "Terms_of_Trade",
+        "toTable": "Terms of Trade",
+        "toColumn": "Terms_Of_Trade"
+      },
+      {
+        "name": "afe0252a-d1ad-458e-8728-12ce0e728da2",
+        "fromTable": "International merchandise trade by commodity (NAPCS)",
+        "fromColumn": "North_ American_Product_Classification_System_(NAPCS)",
+        "toTable": "NAPCS",
+        "toColumn": "North American Product Classification System (NAPCS)"
+      },
+      {
+        "name": "e1ab36e0-2708-49fa-98ce-849ff2d974ea",
+        "fromTable": "International Merchandise Trade by Province and Commodity",
+        "fromColumn": "North_American_Product_Classification_System_(NAPCS).1",
+        "toTable": "NAPCS",
+        "toColumn": "North American Product Classification System (NAPCS)"
+      },
+      {
+        "name": "e0400c9f-c63f-4ce1-b3a2-4009832a0bd7",
+        "fromTable": "International merchandise Trade (All countriesPrincipal Trade Partners)",
+        "fromColumn": "Location",
+        "toTable": "Trade_Locations",
+        "toColumn": "Location"
+      },
+      {
+        "name": "e6fc77ca-9eb1-4faa-a67f-ad550ecbbb6e",
+        "fromTable": "International Merchandise Trade by Province and Commodity",
+        "fromColumn": "Location",
+        "toTable": "Trade_Locations",
+        "toColumn": "Location"
+      },
+      {
+        "name": "9a2eeaaf-ef91-4a10-b39e-2f0cb08e8da9",
+        "fromTable": "International merchandise trade by commodity (NAPCS)",
+        "fromColumn": "Location",
+        "toTable": "Trade_Locations",
+        "toColumn": "Location"
+      },
+      {
+        "name": "96b89bc8-5419-4465-8068-9354630b9229",
+        "fromTable": "International trade in services",
+        "fromColumn": "Location",
+        "toTable": "Trade_Locations",
+        "toColumn": "Location"
+      },
+      {
+        "name": "15a5db58-46e7-4f53-a77a-78cd374b4e17",
+        "fromTable": "International trade in services",
+        "fromColumn": "Service_ categories",
+        "toTable": "Service Category",
+        "toColumn": "Service_ categories"
+      },
+      {
+        "name": "e836ce57-3262-4c86-bd5b-669c1c258e56",
+        "fromTable": "International trade in services",
+        "fromColumn": "Date",
+        "toTable": "Date Table",
+        "toColumn": "Date"
+      },
+      {
+        "name": "b669999c-19b6-41df-9a6e-1ea623602b1d",
+        "fromTable": "International merchandise trade by commodity (NAPCS)",
+        "fromColumn": "Date",
+        "toTable": "Date Table",
+        "toColumn": "Date"
+      },
+      {
+        "name": "a91217a9-30de-465a-a174-1e79d4748eda",
+        "fromTable": "International Merchandise Trade by Province and Commodity",
+        "fromColumn": "Date",
+        "toTable": "Date Table",
+        "toColumn": "Date"
+      },
+      {
+        "name": "c9971145-0299-4bd0-af6b-8e91ae2121c8",
+        "fromTable": "International merchandise Trade (All countriesPrincipal Trade Partners)",
+        "fromColumn": "Date",
+        "toTable": "Date Table",
+        "toColumn": "Date"
+      },
+      {
+        "name": "a1369170-820b-41a1-add5-ac987bf17e89",
+        "fromTable": "International merchandise trade by commodity (NAPCS)",
+        "fromColumn": "Basis_of_Trade",
+        "toTable": "Trade Basis",
+        "toColumn": "Trade_Basis"
+      },
+      {
+        "name": "5593304e-def4-4c25-b69d-c9d8e25d37b0",
+        "fromTable": "International merchandise trade ( price and volume indexes)",
+        "fromColumn": "Date",
+        "toTable": "Date Table",
+        "toColumn": "Date"
+      },
+      {
+        "name": "61c53c27-4bde-4ff1-823d-3eda90f912e1",
+        "fromTable": "International merchandise trade ( price and volume indexes)",
+        "fromColumn": "Terms_of_trade",
+        "toTable": "Trade Basis",
+        "toColumn": "Trade_Basis"
+      },
+      {
+        "name": "dfa70af1-9279-4c2b-9da5-1910b46bfb8d",
+        "fromTable": "International merchandise trade ( price and volume indexes)",
+        "fromColumn": "North_American_Product_Classification_ System_(NAPCS)",
+        "toTable": "NAPCS",
+        "toColumn": "North American Product Classification System (NAPCS)"
+      },
+      {
+        "name": "8cbb9b88-4348-4268-9fdd-c8d66de2a402",
+        "fromTable": "International merchandise trade ( price and volume indexes)",
+        "fromColumn": "Terms_of_trade",
+        "toTable": "Terms of Trade",
+        "toColumn": "Terms_Of_Trade"
+      },
+      {
+        "name": "9799c5b1-8266-4179-8563-9c195c2fe378",
+        "fromTable": "International merchandise trade ( price and volume indexes)",
+        "fromColumn": "Location",
+        "toTable": "Trade_Locations",
+        "toColumn": "Location"
+      }
+    ],
+    "perspectives": [
+      {
+        "name": "Price and Volume Index",
+        "tables": [
+          {
+            "name": "Date Table",
+            "columns": [
+              {
+                "name": "Date"
+              },
+              {
+                "name": "Month"
+              },
+              {
+                "name": "MonthNo"
+              },
+              {
+                "name": "Quarter"
+              },
+              {
+                "name": "Weekday"
+              },
+              {
+                "name": "WeekNum"
+              },
+              {
+                "name": "Year"
+              }
+            ],
+            "hierarchies": [
+              {
+                "name": "Fiscal Year"
+              }
+            ]
+          },
+          {
+            "name": "International merchandise trade ( price and volume indexes)",
+            "columns": [
+              {
+                "name": "Date"
+              },
+              {
+                "name": "IMTPVI_ID"
+              },
+              {
+                "name": "Index"
+              },
+              {
+                "name": "Location"
+              },
+              {
+                "name": "North_American_Product_Classification_ System_(NAPCS)"
+              },
+              {
+                "name": "Seasonal_Adjustment"
+              },
+              {
+                "name": "Terms_of_trade"
+              },
+              {
+                "name": "Trade_Basis"
+              },
+              {
+                "name": "Trade_Value"
+              },
+              {
+                "name": "Weighting"
+              }
+            ]
+          },
+          {
+            "name": "NAPCS",
+            "columns": [
+              {
+                "name": "NAPCSID"
+              },
+              {
+                "name": "North American Product Classification System (NAPCS)"
+              }
+            ]
+          },
+          {
+            "name": "Terms of Trade",
+            "columns": [
+              {
+                "name": "Terms_Of_Trade"
+              },
+              {
+                "name": "TOT_ID"
+              }
+            ]
+          },
+          {
+            "name": "Trade Basis",
+            "columns": [
+              {
+                "name": "TB_ID"
+              },
+              {
+                "name": "Trade_Basis"
+              }
+            ]
+          },
+          {
+            "name": "Trade_Locations",
+            "columns": [
+              {
+                "name": "Location"
+              },
+              {
+                "name": "Location_ID"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Principal Trade Partners",
+        "tables": [
+          {
+            "name": "Date Table",
+            "columns": [
+              {
+                "name": "Date"
+              },
+              {
+                "name": "Month"
+              },
+              {
+                "name": "MonthNo"
+              },
+              {
+                "name": "Quarter"
+              },
+              {
+                "name": "Weekday"
+              },
+              {
+                "name": "WeekNum"
+              },
+              {
+                "name": "Year"
+              }
+            ],
+            "hierarchies": [
+              {
+                "name": "Fiscal Year"
+              }
+            ]
+          },
+          {
+            "name": "International merchandise Trade (All countriesPrincipal Trade Partners)",
+            "columns": [
+              {
+                "name": "Date"
+              },
+              {
+                "name": "IMTCPTP_ID"
+              },
+              {
+                "name": "Location"
+              },
+              {
+                "name": "Principal_Trading_Partners"
+              },
+              {
+                "name": "Seasonal_Adjustment"
+              },
+              {
+                "name": "Terms_Of_Trade"
+              },
+              {
+                "name": "Trade_Basis"
+              },
+              {
+                "name": "Trade_Value"
+              }
+            ]
+          },
+          {
+            "name": "Principal Trading Partner",
+            "columns": [
+              {
+                "name": "Principal_Trading_Partners"
+              },
+              {
+                "name": "PTP_ID"
+              }
+            ]
+          },
+          {
+            "name": "Terms of Trade",
+            "columns": [
+              {
+                "name": "Terms_Of_Trade"
+              },
+              {
+                "name": "TOT_ID"
+              }
+            ]
+          },
+          {
+            "name": "Trade Basis",
+            "columns": [
+              {
+                "name": "TB_ID"
+              },
+              {
+                "name": "Trade_Basis"
+              }
+            ]
+          },
+          {
+            "name": "Trade_Locations",
+            "columns": [
+              {
+                "name": "Location"
+              },
+              {
+                "name": "Location_ID"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Trade by Commodity",
+        "tables": [
+          {
+            "name": "Date Table",
+            "columns": [
+              {
+                "name": "Date"
+              },
+              {
+                "name": "Month"
+              },
+              {
+                "name": "MonthNo"
+              },
+              {
+                "name": "Quarter"
+              },
+              {
+                "name": "Weekday"
+              },
+              {
+                "name": "WeekNum"
+              },
+              {
+                "name": "Year"
+              }
+            ],
+            "hierarchies": [
+              {
+                "name": "Fiscal Year"
+              }
+            ]
+          },
+          {
+            "name": "International merchandise trade by commodity (NAPCS)",
+            "columns": [
+              {
+                "name": "Basis_of_Trade"
+              },
+              {
+                "name": "Date"
+              },
+              {
+                "name": "IMTBC_ID"
+              },
+              {
+                "name": "Location"
+              },
+              {
+                "name": "North_ American_Product_Classification_System_(NAPCS)"
+              },
+              {
+                "name": "Seasonal_Adjustment"
+              },
+              {
+                "name": "Terms_of_Trade"
+              },
+              {
+                "name": "Trade_Value"
+              }
+            ]
+          },
+          {
+            "name": "NAPCS",
+            "columns": [
+              {
+                "name": "NAPCSID"
+              },
+              {
+                "name": "North American Product Classification System (NAPCS)"
+              }
+            ]
+          },
+          {
+            "name": "Terms of Trade",
+            "columns": [
+              {
+                "name": "Terms_Of_Trade"
+              },
+              {
+                "name": "TOT_ID"
+              }
+            ]
+          },
+          {
+            "name": "Trade Basis",
+            "columns": [
+              {
+                "name": "TB_ID"
+              },
+              {
+                "name": "Trade_Basis"
+              }
+            ]
+          },
+          {
+            "name": "Trade_Locations",
+            "columns": [
+              {
+                "name": "Location"
+              },
+              {
+                "name": "Location_ID"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Trade by Province and Commodity",
+        "tables": [
+          {
+            "name": "Date Table",
+            "columns": [
+              {
+                "name": "Date"
+              },
+              {
+                "name": "Month"
+              },
+              {
+                "name": "MonthNo"
+              },
+              {
+                "name": "Quarter"
+              },
+              {
+                "name": "Weekday"
+              },
+              {
+                "name": "WeekNum"
+              },
+              {
+                "name": "Year"
+              }
+            ],
+            "hierarchies": [
+              {
+                "name": "Fiscal Year"
+              }
+            ]
+          },
+          {
+            "name": "International Merchandise Trade by Province and Commodity",
+            "columns": [
+              {
+                "name": "Date"
+              },
+              {
+                "name": "IMTBPC_ID"
+              },
+              {
+                "name": "Location"
+              },
+              {
+                "name": "North_American_Product_Classification_System_(NAPCS).1"
+              },
+              {
+                "name": "Principal_Trading_Partners"
+              },
+              {
+                "name": "Terms_of_Trade"
+              },
+              {
+                "name": "Trade_Value"
+              }
+            ]
+          },
+          {
+            "name": "NAPCS",
+            "columns": [
+              {
+                "name": "NAPCSID"
+              },
+              {
+                "name": "North American Product Classification System (NAPCS)"
+              }
+            ]
+          },
+          {
+            "name": "Principal Trading Partner",
+            "columns": [
+              {
+                "name": "Principal_Trading_Partners"
+              },
+              {
+                "name": "PTP_ID"
+              }
+            ]
+          },
+          {
+            "name": "Terms of Trade",
+            "columns": [
+              {
+                "name": "Terms_Of_Trade"
+              },
+              {
+                "name": "TOT_ID"
+              }
+            ]
+          },
+          {
+            "name": "Trade_Locations",
+            "columns": [
+              {
+                "name": "Location"
+              },
+              {
+                "name": "Location_ID"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Trade in Services",
+        "tables": [
+          {
+            "name": "Date Table",
+            "columns": [
+              {
+                "name": "Date"
+              },
+              {
+                "name": "Month"
+              },
+              {
+                "name": "MonthNo"
+              },
+              {
+                "name": "Quarter"
+              },
+              {
+                "name": "Weekday"
+              },
+              {
+                "name": "WeekNum"
+              },
+              {
+                "name": "Year"
+              }
+            ],
+            "hierarchies": [
+              {
+                "name": "Fiscal Year"
+              }
+            ]
+          },
+          {
+            "name": "International trade in services",
+            "columns": [
+              {
+                "name": "Date"
+              },
+              {
+                "name": "ITS_ID"
+              },
+              {
+                "name": "Location"
+              },
+              {
+                "name": "Principal_Trade_Partners"
+              },
+              {
+                "name": "Seasonal_Adjustment"
+              },
+              {
+                "name": "Service_ categories"
+              },
+              {
+                "name": "Terms_of_Trade"
+              },
+              {
+                "name": "Trade_Value"
+              }
+            ]
+          },
+          {
+            "name": "Service Category",
+            "columns": [
+              {
+                "name": "Service_ categories"
+              },
+              {
+                "name": "ServiceCategoryID"
+              }
+            ]
+          },
+          {
+            "name": "Terms of Trade",
+            "columns": [
+              {
+                "name": "Terms_Of_Trade"
+              },
+              {
+                "name": "TOT_ID"
+              }
+            ]
+          },
+          {
+            "name": "Trade_Locations",
+            "columns": [
+              {
+                "name": "Location"
+              },
+              {
+                "name": "Location_ID"
+              }
+            ]
           }
         ]
       }
